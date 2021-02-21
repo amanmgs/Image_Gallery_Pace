@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Image Gallery</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+</style>
+<body>
+	<H4 style="display: flex; justify-content: center;">Image Gallery</H4>
+	<div class="flex-container">
+		<div style="width:90%; margin-left:20px;">
+			{% for name in category %}
+				{% ifchanged name.category %} <button><a href="/?category={{name.category}}">{{ name.category | title }} </a></button>{% endifchanged %}
+			{% endfor %}
+				<button><a href="/">Clear Filter</a></button>
+		</div>
+		<div style="display: flex; justify-content: flex-end;">
+			<button><a href="/image_upload">Upload Image</a></button>
+		</div>
+	</div>
+	{% for image in images %}
+			<div class="col-md-4">
+					<img src="{{ image.image.url }}"  class="img-thumbnail"  style="width: 441px; height: 300px; float: left; margin-right: 10px; margin-top:10px" />
+			</div>
+	{% empty %}
+			<div style="display: flex; justify-content: center; width:100%; margin-top:200px;">
+				 <H2>Upload an Image</H2>
+			</div>
+	{% endfor %}
+	</div>
+</body>
+</html>
